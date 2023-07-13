@@ -1,5 +1,15 @@
-let getHomePage = (req, res) => {
-    return res.render('homepage.ejs');
+import db from "../models/index";
+
+
+let getHomePage = async (req, res) => {
+    try {
+        let data = await db.User.findAll();
+        return res.render('homepage.ejs', {
+            data: JSON.stringify(data)
+        });
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 let getAboutPage = (req, res) => {
@@ -8,5 +18,5 @@ let getAboutPage = (req, res) => {
 
 module.exports = {
     getHomePage: getHomePage,
-    getAboutPage: getAboutPage,   
+    getAboutPage: getAboutPage,
 }
